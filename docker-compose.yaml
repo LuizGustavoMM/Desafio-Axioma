@@ -21,6 +21,6 @@ services:
     depends_on:
       - n8n
     environment:
-      - N8N_WEBHOOK_URL=http://localhost:5678/rest/webhooks-test/legislativo
+      - N8N_WEBHOOK_URL=http://n8n:5678/rest/webhooks-test/legislativo
     volumes:
       - ./app:/app

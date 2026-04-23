@@ -1,11 +1,12 @@
 import os
-from app.scraper import TransparencyAPI, N8nIntegration
+import time
+from scraper import TransparencyAPI, N8nIntegration
 from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_URL_API = "URL_DA_API_AQUI"
-N8N_WEBHOOK = os.getenv("N8N_WEBHOOK_URL")
+BASE_URL_API = os.getenv("BASE_URL_API", "https://dadosabertos.camara.leg.br/api/v2")
+N8N_WEBHOOK = os.getenv("N8N_WEBHOOK_URL", "http://localhost:5678/webhook-test/df2de181-7ade-4305-8878-84a52b9d4d61")
 
 def run():
     api = TransparencyAPI(BASE_URL_API)
