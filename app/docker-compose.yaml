@@ -1,0 +1,26 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n_server
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - TZ=America/Sao_Paulo
+      - N8N_SECURE_COOKIE=false
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+      - ./workflows:/home/node/workflows
+
+  app-scraper:
+    build: ./app
+    container_name: python_scraper
+    restart: "no"
+    depends_on:
+      - n8n
+    environment:
+      - N8N_WEBHOOK_URL=http://localhost:5678/rest/webhooks-test/legislativo
+    volumes:
+      - ./app:/app
